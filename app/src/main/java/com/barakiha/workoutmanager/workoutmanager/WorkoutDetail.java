@@ -1,5 +1,6 @@
 package com.barakiha.workoutmanager.workoutmanager;
 
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,8 +18,16 @@ public class WorkoutDetail extends Fragment {
                              Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             workoutId = savedInstanceState.getLong("workoutId");
-        }
+        }else {
 
+            WorkoutDetail details = new WorkoutDetail();
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            StopwatchFragment stopwatchFragment = new StopwatchFragment();
+            ft.replace(R.id.stopwatch_container, stopwatchFragment);
+            ft.addToBackStack(null);
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            ft.commit();
+        }
         return inflater.inflate(R.layout.fragment_workout_detail, container, false);
     }
     @Override
